@@ -252,7 +252,7 @@ function App() {
               <a href="https://github.com/shreyaagrawal30" target="_blank" rel="noreferrer" className="social-item">
                 <i className="devicon-github-original"></i> GitHub
               </a>
-              <a href="/fShreya_Agrawal_Resume.pdf" download className="social-item resume-link-contact">
+              <a href="/Shreya_Agrawal_Resume.pdf" download className="social-item resume-link-contact">
                 <i className="devicon-file-pdf-plain colored"></i> Download Resume
               </a>
             </div>
@@ -284,10 +284,10 @@ function App() {
       {/* FOOTER */}
       <footer className="footer">
         <div className="footer-content">
-          <a href="/Shreya_Agrawal_Resume.pdf" download className="footer-resume-link">
+          {/* <a href="/Shreya_Agrawal_Resume.pdf" download className="footer-resume-link">
             <i className="devicon-file-pdf-plain colored"></i> Download My Resume
-          </a>
-          <p className="copyright">© 2026 Shreya Agrawal</p>
+          </a> */}
+          <p className="copyright">© 2025 Shreya Agrawal</p>
         </div>
       </footer>
 
