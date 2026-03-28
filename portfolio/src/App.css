@@ -1,0 +1,712 @@
+:root {
+  --bg: #1e1a2e; /* Softer, lighter deep purple */
+  --primary: #c084fc; 
+  --secondary: #f472b6;
+  --glass: rgba(255, 255, 255, 0.04);
+  --text: #ffffff;
+  --text-soft: #d1d5db;
+  --text-purple: #e9d5ff;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.12), transparent 30%), 
+    radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.1), transparent 30%);
+}
+
+.portfolio-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+
+/* NAVBAR - Logo Left, Links Right */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; width: 100%;
+  padding: 1.25rem 0;
+  background: rgba(30, 26, 46, 0.85);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.nav-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: space-between; /* This pushes logo left and links right */
+  align-items: center;
+}
+
+.logo { font-weight: 800; font-size: 1.4rem; letter-spacing: -0.5px; }
+.dot { color: var(--primary); }
+
+.nav-links { list-style: none; display: flex; gap: 2.5rem; margin: 0; padding: 0; }
+.nav-links a { text-decoration: none; color: var(--text-soft); font-size: 0.95rem; transition: 0.3s; }
+.nav-links a:hover { color: var(--primary); }
+
+/* HERO SECTION */
+.hero {
+  margin-top: 8rem;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 3.5rem;
+}
+
+.hero-text {
+  margin-left: 3.5rem; /* 👈 pushes text right */
+}
+
+.hero-image-container {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.profile-img {
+  width: 320px; height: 320px;
+  object-fit: cover; border-radius: 50%;
+  border: 2px solid rgba(192, 132, 252, 0);
+  box-shadow: 0 0 60px rgba(168, 85, 247, 0.15);
+  transform: none;
+}
+
+h1 {
+  font-size: 4.2rem; line-height: 1.1; margin: 0 0 1rem 0;
+  background: linear-gradient(to right, #fff, #d8b4fe);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.role { color: var(--primary); font-size: 1.25rem; margin-bottom: 1.25rem; font-weight: 500; }
+.hero-bio { color: var(--text-soft); line-height: 1.7; font-size: 1.1rem; margin-bottom: 2.5rem; }
+
+.hero-buttons {
+  display: flex;
+  gap: 1.25rem;
+  justify-content: flex-start;
+}
+.cta-button { padding: 0.9rem 2.2rem; border-radius: 50px; font-weight: 600; cursor: pointer; transition: 0.3s; border: none; }
+.primary { background: linear-gradient(to right, var(--primary), var(--secondary)); color: white; }
+.secondary { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: white; text-decoration: none; display: inline-flex; align-items: center; }
+.cta-button:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+
+/* EXPERIENCE & PROJECTS */
+.section { 
+  margin: 10rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.section-title {
+  font-size: 2.4rem;
+  margin-top: 8rem;
+  margin-bottom: 4rem;
+  text-align: left;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  /* 3.5rem (Hero Padding) + 3.5rem (Hero Text Margin) = 7rem total offset */
+  padding: 0 7rem; 
+}
+/* Ensure the grid matches our 5rem / 11rem shift */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  padding: 0 5rem; /* Matches your About/Experience margin */
+  margin-top: 2rem;
+}
+
+.project-card {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  transition: transform 0.4s ease, border-color 0.4s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Image styling */
+.project-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background: #12101c; /* Fallback color */
+}
+
+.project-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-img {
+  opacity: 1;
+}
+
+/* THE GITHUB ICON IN THE CORNER */
+.project-github-link {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 5;
+}
+
+.project-github-link i {
+  font-size: 1.8rem;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 8px;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.project-github-link i:hover {
+  color: var(--primary);
+  background: white;
+  transform: scale(1.1);
+}
+
+/* Text info */
+.project-info {
+  padding: 1.5rem;
+}
+
+.project-info h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.4rem;
+}
+
+.project-info p {
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* Hashtag style tags */
+.project-hashtags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.project-hashtags span {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary); /* Uses your purple theme color */
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 2rem;
+}
+
+.tags span {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  color: var(--text-purple);
+  border: 1px solid rgba(192, 132, 252, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between icon and text */
+  transition: 0.3s;
+}
+
+.tags span i {
+  font-size: 1.1rem; /* Makes the icon slightly larger than text */
+}
+
+.tags span:hover {
+  background: rgba(192, 132, 252, 0.1);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+/* Optional: If you want the icons to have their original brand colors */
+.colored {
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.2));
+}
+
+.footer { text-align: center; padding: 6rem 0; border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-soft); }
+.gradient-text {
+  background: linear-gradient(to right, #c084fc, #f472b6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+/* THE TIMELINE CONTAINER */
+.section-title, 
+.timeline {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-left: 5rem; /* This is your new "starting line" */
+  padding-right: 1.5rem;
+}
+
+/* THE VERTICAL LINE */
+.timeline::before {
+  content: '';
+  position: absolute;
+  /* Centered on the 160px date column */
+  left: calc(8.5rem + 160px); 
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  /* Fades in at the top, solid purple middle, fades out at the bottom */
+  background: linear-gradient(
+    to bottom, 
+    transparent, 
+    rgba(192, 132, 252, 0.5) 15%, 
+    rgba(192, 132, 252, 0.5) 85%, 
+    transparent
+  );
+  z-index: 0;
+}
+
+/* THE DOT - SIMPLE & CLEAN */
+.timeline-dot {
+  position: absolute;
+  /* Centered on the line */
+  left: 192px; /* 180px width + 20px gap - 8px half-dot */
+  top: 10px;
+  width: 16px;
+  height: 16px;
+  background: var(--primary);
+  border: 3px solid var(--bg);
+  border-radius: 50%;
+  z-index: 2;
+}
+
+/* THE CARD - SIMPLE BOX */
+.timeline-card {
+  flex: 1;
+  background: var(--glass);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  margin-left: 45px; /* Clean gap after the dot */
+}
+
+
+/* THE DATE - ALIGNED */
+.timeline-left {
+  width: 180px; /* Space for the date */
+  text-align: left; /* CHANGED: Starts at the same margin as the title */
+  padding-right: 20px;
+  flex-shrink: 0;
+}
+
+.timeline-date {
+  color: var(--text-soft);
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.timeline-item {
+  display: flex;
+  margin-bottom: 4rem;
+  position: relative; /* This is key */
+  z-index: 1;
+}
+
+/* CARD */
+
+.timeline-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--primary);
+  background: rgba(255,255,255,0.06);
+}
+
+/* TEXT */
+.timeline-card h3 {
+  margin-bottom: 0.3rem;
+}
+
+.timeline-card h4 {
+  color: var(--text-soft);
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.timeline-card ul {
+  padding-left: 1.2rem;
+  color: var(--text-soft);
+}
+
+.timeline-card li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 900px) {
+  .hero-content {
+    padding: 0 1.5rem;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-image-container {
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .profile-img {
+    width: 260px;
+    height: 260px;
+  }
+
+  h1 {
+    font-size: 3.2rem;
+  }
+
+  .nav-links {
+    display: none;
+  }
+}
+
+.about-content {
+  margin-top: -1rem;
+}
+
+.about-content strong {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* Ensure the timeline text color stays crisp */
+.timeline-card li {
+  margin-bottom: 0.6rem;
+  color: var(--text-soft);
+  line-height: 1.6;
+}
+
+.project-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+/* Make the GitHub icon only show up/brighten on hover */
+.project-github-overlay {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.6);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: 0.3s;
+  opacity: 0.8;
+}
+
+.project-card:hover .project-github-overlay {
+  opacity: 1;
+  background: var(--primary); /* Glows purple on hover */
+  transform: scale(1.1);
+}
+
+.scroll-top {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: 50px;
+  height: 50px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.scroll-top:hover {
+  transform: translateY(-5px);
+  background: var(--secondary);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group input, 
+.form-group textarea {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: white;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.social-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--text-soft);
+  font-size: 1.1rem;
+  transition: 0.3s;
+}
+
+.social-item:hover {
+  color: var(--primary);
+  transform: translateX(5px);
+}
+
+/* Mobile responsive contact */
+@media (max-width: 900px) {
+  .contact-container {
+    flex-direction: column;
+    padding: 0 1.5rem !important;
+  }
+}
+.success-message {
+  background: rgba(192, 132, 252, 0.05);
+  border: 1px dashed var(--primary);
+  padding: 3rem;
+  border-radius: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-message h3 {
+  font-size: 1.8rem;
+  color: var(--primary);
+}
+
+/* Disable button look during sending */
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.resume-link-contact {
+  margin-top: 0.5rem;
+  padding: 8px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05); /* Subtle separator */
+  color: var(--primary) !important; /* Makes it pop slightly more */
+  font-weight: 600;
+}
+
+.resume-link-contact:hover {
+  color: var(--secondary) !important;
+  transform: translateX(8px) !important;
+}
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 768px) {
+  /* 1. Reduce the heavy 5rem padding so text isn't squished */
+  .section, 
+  .about-content, 
+  .projects-grid, 
+  .contact-container {
+    padding: 0 1.5rem !important; /* Much smaller side gaps for mobile */
+  }
+
+  /* 2. Fix the Hero Section */
+  .hero-content {
+    flex-direction: column; /* Stacks text on top of image */
+    text-align: center;
+    padding: 100px 1.5rem 40px;
+  }
+
+  .hero-buttons {
+    justify-content: center; /* Centers buttons on mobile */
+  }
+
+  .hero-text h1 {
+    font-size: 2.5rem; /* Slightly smaller title for small screens */
+  }
+
+  /* 3. Adjust the Profile Image size */
+  .hero-image-container {
+    margin-top: 2rem;
+  }
+
+  .profile-img {
+    width: 250px;
+    height: 250px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .timeline-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .timeline-left {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 5px;
+  }
+
+  .timeline-dot {
+    display: none; /* Dots usually look messy on mobile */
+  }
+
+  .timeline-card {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  /* 1. Fix the main container padding */
+  .hero-content, 
+  .about-content, 
+  .contact-container,
+  .projects-grid,
+  .section {
+    padding: 0 1.5rem !important; /* Forces smaller gaps on the sides */
+    text-align: center; /* Centers the text for a better mobile feel */
+  }
+
+  /* 2. Force the Hero to stack vertically */
+  .hero-content {
+    flex-direction: column !important;
+    align-items: center;
+    justify-content: center;
+    padding-top: 120px !important; /* Gives room for the navbar */
+  }
+
+  /* 3. Adjust the text and roles */
+  .hero-text {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .role {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  /* 4. Center the buttons */
+  .hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .cta-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+    min-width: 140px;
+  }
+
+  /* 5. Move image below the text */
+  .hero-image-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
+  .profile-img {
+    width: 220px; /* Smaller image for mobile */
+    height: 220px;
+  }
+
+  /* 6. Fix the Navbar */
+  .nav-content {
+    padding: 0 1.5rem;
+  }
+  
+  .nav-links {
+    display: none; /* Usually better to hide links or use a burger menu on mobile */
+  }
+}
+html {
+  scroll-behavior: smooth;
+}
+
+/* Optional: Offset for the fixed navbar so it doesn't cover the title */
+section {
+  scroll-margin-top: 80px; 
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* Hides links on mobile to prevent the "squashed" look */
+  }
+  .nav-content {
+    justify-content: center; /* Centers your logo on mobile */
+  }
+}
