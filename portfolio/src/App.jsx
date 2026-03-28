@@ -84,9 +84,9 @@ function App() {
             </p>
 
             <div className="hero-buttons">
-              <button className="cta-button primary" onClick={() => window.location = 'mailto:shreyaagr05@gmail.com'}>
+              <a href="#contact" className="cta-button primary">
                 Contact Me
-              </button>
+              </a>
               <a href="#projects" className="cta-button secondary">
                 View Work
               </a>
