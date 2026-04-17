@@ -5,45 +5,104 @@ import profilePic from './assets/profile.jpeg';
 import React from 'react';
 import vendorImg from './assets/VendorPerformance.png';
 
-/* ─── React Bits: SpotlightCard ────────────────────────────────────────────── */
 function SpotlightCard({ children, className = '' }) {
-  const ref = React.useRef(null);
   const [pos, setPos] = React.useState({ x: 0, y: 0 });
-  const [hovered, setHovered] = React.useState(false);
 
   return (
     <div
-      ref={ref}
       className={`spotlight-card ${className}`}
       onMouseMove={e => {
-        const r = ref.current.getBoundingClientRect();
+        const r = e.currentTarget.getBoundingClientRect();
         setPos({ x: e.clientX - r.left, y: e.clientY - r.top });
       }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
     >
       <div
         className="spotlight-glow"
-        style={{
-          opacity: hovered ? 1 : 0,
-          background: `radial-gradient(500px circle at ${pos.x}px ${pos.y}px, rgba(192,132,252,0.18), transparent 40%)`,
-        }}
+        style={{ background: `radial-gradient(500px circle at ${pos.x}px ${pos.y}px, rgba(192,132,252,0.18), transparent 40%)` }}
       />
       {children}
     </div>
   );
 }
 
-/* ─── React Bits: ShinyText ─────────────────────────────────────────────────── */
 function ShinyText({ children, className = '' }) {
   return <span className={`shiny-text ${className}`}>{children}</span>;
 }
 
+const ROLES = ['Data Analyst', 'ML Researcher', 'Software Developer'];
+
+function TypewriterRole() {
+  const [display, setDisplay] = React.useState('');
+  const roleIdx  = React.useRef(0);
+  const charIdx  = React.useRef(0);
+  const deleting = React.useRef(false);
+  const timerRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const tick = () => {
+      const role = ROLES[roleIdx.current];
+      if (!deleting.current) {
+        charIdx.current += 1;
+        setDisplay(role.slice(0, charIdx.current));
+        if (charIdx.current === role.length) {
+          timerRef.current = setTimeout(() => { deleting.current = true; tick(); }, 1800);
+          return;
+        }
+      } else {
+        charIdx.current -= 1;
+        if (charIdx.current === 0) {
+          deleting.current = false;
+          roleIdx.current = (roleIdx.current + 1) % ROLES.length;
+        } else {
+          setDisplay(role.slice(0, charIdx.current));
+        }
+      }
+      timerRef.current = setTimeout(tick, deleting.current ? 45 : 85);
+    };
+    timerRef.current = setTimeout(tick, 400);
+    return () => clearTimeout(timerRef.current);
+  }, []);
+
+  return <span>{display}<span className="typewriter-cursor" /></span>;
+}
+
+const SKILLS = {
+  'Languages & Databases': [
+    { name: 'Python',     icon: 'devicon-python-plain colored' },
+    { name: 'C',          icon: 'devicon-c-plain colored' },
+    { name: 'Java',       icon: 'devicon-java-plain colored' },
+    { name: 'JavaScript', icon: 'devicon-javascript-plain colored' },
+    { name: 'R',          icon: 'devicon-r-plain colored' },
+    { name: 'SQL' },
+    { name: 'PostgreSQL', icon: 'devicon-postgresql-plain colored' },
+  ],
+  'Frameworks & Libraries': [
+    { name: 'React',       icon: 'devicon-react-original colored' },
+    { name: 'Django',      icon: 'devicon-django-plain colored' },
+    { name: 'Flask',       icon: 'devicon-flask-original colored' },
+    { name: 'PyTorch',     icon: 'devicon-pytorch-plain colored' },
+    { name: 'Pandas',      icon: 'devicon-pandas-plain colored' },
+    { name: 'NumPy',       icon: 'devicon-numpy-plain colored' },
+    { name: 'Matplotlib' },
+    { name: 'Tkinter' },
+  ],
+  'Tools': [
+    { name: 'Git',         icon: 'devicon-git-plain colored' },
+    { name: 'VS Code',     icon: 'devicon-vscode-plain colored' },
+    { name: 'PyCharm',     icon: 'devicon-pycharm-plain colored' },
+    { name: 'Jupyter',     icon: 'devicon-jupyter-plain colored' },
+    { name: 'Power BI',    icon: 'devicon-powerbi-plain colored' },
+    { name: 'Tableau' },
+    { name: 'Excel' },
+  ],
+};
+
+const fadeInUp = {
+  hidden:  { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+};
+
 function App() {
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
 
   const [showScroll, setShowScroll] = React.useState(false);
   const [formStatus, setFormStatus] = React.useState('');
@@ -81,6 +140,7 @@ function App() {
           <div className="logo">shreya<span className="dot">.</span>dev</div>
           <ul className="nav-links">
             <li><a href="#about-me">About</a></li>
+            <li><a href="#skills">Skills</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -105,7 +165,7 @@ function App() {
             transition={{ duration: 0.6 }}
           >
             <h1>Hi, I&apos;m <span className="gradient-text">Shreya</span></h1>
-            <p className="role">Data Analyst · Machine Learning Researcher · Software Developer</p>
+            <p className="role"><TypewriterRole /></p>
             <p className="hero-bio">
               I build data-driven systems that turn large, complex datasets into actionable insights.
               My work spans machine learning, ETL pipelines, and full-stack development.
@@ -147,6 +207,36 @@ function App() {
           <p>
             As a member of <strong>ConnectAB (WTC) and RTC</strong>, I actively collaborate with peers and engage with the broader tech community to stay at the forefront of emerging technologies.
           </p>
+        </div>
+      </motion.section>
+
+      {/* SKILLS */}
+      <motion.section
+        id="skills"
+        className="section"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeInUp}
+      >
+        <h2 className="section-title"><ShinyText>Skills</ShinyText></h2>
+        <div className="skills-container">
+          {Object.entries(SKILLS).map(([category, items]) => (
+            <div key={category}>
+              <p className="skills-category-label">{category}</p>
+              <div className="skills-badges">
+                {items.map(skill => (
+                  <div className="skill-badge" key={skill.name}>
+                    {skill.icon
+                      ? <i className={skill.icon} />
+                      : <span className="skill-initials">{skill.name.replace(/\s+/g, '').slice(0, 3).toUpperCase()}</span>
+                    }
+                    <span>{skill.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </motion.section>
 

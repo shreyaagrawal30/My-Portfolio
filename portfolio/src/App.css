@@ -318,10 +318,13 @@ h1 {
   position: absolute;
   inset: 0;
   pointer-events: none;
+  opacity: 0;
   transition: opacity 0.35s ease;
   z-index: 0;
   border-radius: inherit;
 }
+
+.spotlight-card:hover .spotlight-glow { opacity: 1; }
 
 .spotlight-card > *:not(.spotlight-glow) {
   position: relative;
@@ -594,25 +597,25 @@ button:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important;
 
 /* Shimmer sweep on section titles */
 @keyframes shine {
-  0%   { background-position: -200% center; }
-  100% { background-position:  200% center; }
+  0%   { background-position: 100% center; }
+  100% { background-position: 0% center; }
 }
 
 .shiny-text {
   background: linear-gradient(
-    120deg,
+    to right,
     var(--text)    0%,
-    var(--text)    38%,
+    var(--text)    35%,
     #fff           50%,
-    var(--primary) 56%,
-    var(--text)    66%,
+    var(--primary) 58%,
+    var(--text)    68%,
     var(--text)    100%
   );
-  background-size: 250% auto;
+  background-size: 300% auto;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shine 5s linear infinite;
+  animation: shine 4s linear infinite;
 }
 
 
@@ -705,4 +708,93 @@ button:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important;
     width:  clamp(160px, 60vw, 220px);
     height: clamp(160px, 60vw, 220px);
   }
+}
+
+
+/* ============================================================
+   TYPEWRITER
+   ============================================================ */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--primary);
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  border-radius: 1px;
+  animation: blink 1s step-end infinite;
+}
+
+
+/* ============================================================
+   SKILLS
+   ============================================================ */
+.skills-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--page-pad);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.skills-category-label {
+  font-size: clamp(0.72rem, 1.2vw, 0.82rem);
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin: 0 0 0.75rem;
+}
+
+.skills-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.5rem, 1.2vw, 0.85rem);
+}
+
+.skill-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: clamp(0.5rem, 1.2vw, 0.7rem) clamp(0.9rem, 2vw, 1.25rem);
+  background: var(--glass);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50px;
+  font-size: clamp(0.8rem, 1.4vw, 0.92rem);
+  color: var(--text-soft);
+  cursor: default;
+  transition: background 0.3s, border-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+.skill-badge:hover {
+  background: rgba(192, 132, 252, 0.1);
+  border-color: var(--primary);
+  color: var(--text);
+  transform: translateY(-3px);
+}
+
+.skill-badge i {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  line-height: 1;
+}
+
+.skill-initials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.6rem;
+  height: 1.4rem;
+  padding: 0 4px;
+  background: rgba(192, 132, 252, 0.18);
+  border-radius: 5px;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: var(--primary);
 }
